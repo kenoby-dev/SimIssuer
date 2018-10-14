@@ -105,14 +105,14 @@ app.get('/account', ensureAuthenticated, function(req, res){
 });
 
 app.get('/login',
-  passport.authenticate('wsfed-saml2', { failureRedirect: '/', failureFlash: true }),
+  passport.authenticate('wsfed-saml2', { wreply: "http://127.0.0.1:3000/login/callback", failureRedirect: '/', failureFlash: true }),
   function(req, res) {
     res.redirect('/');
   }
 );
 
 app.post('/login/callback',
-  passport.authenticate('wsfed-saml2', { failureRedirect: '/', failureFlash: true }),
+  passport.authenticate('wsfed-saml2', { wreply: "http://127.0.0.1:3000/login/callback", failureRedirect: '/', failureFlash: true }),
   function(req, res) {
     res.redirect('/');
   }
