@@ -1,0 +1,62 @@
+﻿[
+  {
+    "uid": "user1",
+    "claims": [
+      {
+        "name": "role",
+        "namespace": "http://schemas.microsoft.com/ws/2008/06/identity/claims",
+        "value": "Admin"
+      },
+      {
+        "name": "emailaddress",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "user1@company.com"
+      },
+      {
+        "name": "surname",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "One"
+      },
+      {
+        "name": "givenname",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "User"
+      },
+      {
+        "name": "name",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "user1"
+      }
+    ]
+  },
+  {
+    "uid": "user2",
+    "claims": [
+      {
+        "name": "role",
+        "namespace": "http://schemas.microsoft.com/ws/2008/06/identity/claims",
+        "value": "User"
+      },
+      {
+        "name": "emailaddress",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "user2@company.com"
+      },
+      {
+        "name": "surname",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "Two"
+      },
+      {
+        "name": "givenname",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "User"
+      },
+      {
+        "name": "name",
+        "namespace": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims",
+        "value": "user2"
+      }
+    ]
+  }
+]

@@ -1,0 +1,16 @@
+﻿@model System.Security.Claims.ClaimsIdentity
+
+@{
+}
+
+<div>
+    Hello, @Model.Name
+
+    <dl>
+        @foreach (var claim in Model.Claims)
+        {
+            <dt>@claim.Type</dt>
+            <dd>@claim.Value</dd>
+        }
+    </dl>
+</div>

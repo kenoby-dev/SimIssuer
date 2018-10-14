@@ -1,0 +1,117 @@
+﻿@using System.Security.Cryptography.X509Certificates
+@model SimIssuer.Models.LoginModel
+@{
+    ViewBag.Title = "Login";
+}
+
+@{
+    var cert = new X509Certificate2(Server.MapPath("~/Content/simissuer.cer"));
+}
+
+<form method="post" action="~/home/index">
+    <fieldset>
+        <legend>Configuration</legend>
+        <div class="form-group row">
+            @Html.LabelFor(x => x.Realm, new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Realm, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(x => x.Reply, new { @class = "col-sm-2 col-form-label" })
+            <div class="col-sm-10">
+                @Html.TextBoxFor(x => x.Reply, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-sm-2 col-form-label">Certificate</label>
+            <div class="col-sm-10">
+                <p class="form-control-static">
+                    @cert.Thumbprint
+                    <a href="~/Content/simissuer.cer" title="Download Trust Certificate">Download</a>
+                </p>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>User</legend>
+        <div class="form-group row">
+            <label for="realm" class="col-sm-2 col-form-label">User</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="users" name="UserId"></select>
+            </div>
+        </div>
+    </fieldset>
+
+    <div id="claims">
+        <fieldset>
+            <legend>Claims</legend>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Namespace</th>
+                        <th>Name</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+        </fieldset>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input type="submit" class="btn btn-lg" value="Login" />
+        </div>
+    </div>
+</form>
+
+@section scripts {
+    <script type="text/javascript">
+            var json = "@VirtualPathUtility.ToAbsolute("~/content/users.json")";
+        var simUsers;
+
+        $('#users').change(function () {
+            var uid = $('#users').val();
+            getClaimsForUid(uid);
+        });
+
+            $.getJSON(json, function (data) {
+                simUsers = data;
+
+                var items = [];
+                var select = $("#users");
+                var selectedUid = "";
+
+                $.each(data, function (index) {
+                    if (index == 0) {
+                        selectedUid = this.uid;
+                        getClaimsForUid(selectedUid);
+                    }
+
+                    $("<option value='" + this.uid + "' " + ((index == 0) ? "selected" : "") + ">" + this.uid + "</option>").appendTo(select);
+                });
+            });
+
+            function getClaimsForUid(uid) {
+                var user;
+
+                $("#claims table tbody").html("");
+
+                $.each(simUsers, function (i, obj) {
+                    if (obj.uid == uid) {
+                        user = obj;
+                        return;
+                    }
+                });
+
+                $.each(user.claims, function (i, obj) {
+                    $("<tr><td>" + obj.namespace + "</td><td>" + obj.name + "</td><td>" + obj.value + "</td></tr>").appendTo("#claims table tbody");
+                });
+
+            }
+    </script>
+}
