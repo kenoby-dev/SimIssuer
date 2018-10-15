@@ -42,7 +42,7 @@ namespace SimIssuer.Controllers
             var config = new SecurityTokenServiceConfiguration(
                 "SimIssuer",
                 new X509SigningCredentials(
-                    new X509Certificate2(Server.MapPath(VirtualPathUtility.ToAbsolute("~/app_data/simissuer.pfx")), "SimIssuer"),
+                    new X509Certificate2(Server.MapPath(VirtualPathUtility.ToAbsolute("~/app_data/simissuer.pfx")), "SimIssuer", X509KeyStorageFlags.MachineKeySet),
                     "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256",
                     "http://www.w3.org/2001/04/xmlenc#sha256"));
             var tokenService = new TokenService(config);
